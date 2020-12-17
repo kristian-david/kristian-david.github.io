@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BATTLESHIP</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+<div class="view-panel">
+	
+	<div class="upper-part"></div>
+
+	<div class="lower-part">
+
+		<h1 id="gameManager-text"> </h1>
+		<div class="game-panel"></div>
+		<div class="game-grid"><h1 id="grid-text">◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼ ◼◼◼◼◼◼◼◼</h1></div>
+
+
+		<div class="info-panel">
+			
+			<h1 class="info-text" id="infoPlayer-text">PLAYER DATA</h1>
+			<h1 class="remaining-text" id="playerShips-text">SHIPS: 00</h1>
+			<h1 class="remaining-text" id="score-text">SCORE: 00</h1>
+
+			<h1 class="info-text" id="infoEnemy-text">ENEMY DATA</h1>
+			<h1 class="remaining-text" id="enemyShips-text">SHIPS: 00</h1>
+
+			<h1 class="infoDatas-text" id="infoHighScore-text">HIGH SCORE</h1>
+			<h1 class="remaining-text" id="highScore-text">420</h1>
+
+		</div>
+
+		<div class="control-panel">
+			<div class="text-panel">
+
+				<h1 class="info-text" id="control-text">CONTROL CENTER</h1>
+				<h1 class="info-text" id="system-text">SYSTEM SETTINGS</h1>
+
+				<div class="coordinate-inputs">
+					<input type="text" name="text" class="text-input" id="textX-input" placeholder="X" maxlength="1" required>
+					<input type="text" onkeyup="this.value = this.value.toUpperCase();" name="text" class="text-input" id="textY-input" placeholder="Y" maxlength="1" required>
+					<br>
+					<button onclick="Confirm()" name="confirm" class="button" id="confirm-button"><div class="buttonA-text">CONFIRM</div></button>
+				</div>
+
+				
+
+				<div class="system-inputs">
+					<button onclick="Restart()" name="restart" class="button" id="restart-button"><div class="buttonB-text">RESTART</div></button>
+					<button onclick="Save()" name="save" class="button" id="save-button"><div class="buttonB-text">SAVE</div></button>
+					<button name="load" class="button" id="load-button"><div class="buttonB-text">LOAD</div></button>
+				</div>
+			
+			</div>
+			
+		</div>
+
+	</div>
+
+	<p id="credits-text"> Kristian David, 2020</p>
+
+
+</div>
+
+<code id="code"></code>
+
+<script src="src/script.js"></script>
+
+</body>
+</html>
