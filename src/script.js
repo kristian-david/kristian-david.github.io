@@ -249,7 +249,7 @@ function ConfirmSetupPosition(){
 			ships[s].startLocX = xVal;
 			ships[s].startLocY = yVal;
 
-			matrix[yVal] = placeMarker(matrix[yVal], '◼', xVal);
+			matrix[yVal] = placeMarker(matrix[yVal], '▦', xVal);
 			LoadBoard();
 
 			//ANNOUNCE YUNG PROGRESSION NG SETUP
@@ -468,7 +468,7 @@ function ConfirmShoot(){
 			if (CheckEnemyShip() == true){
 				CheckAliveShips();
 
-				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], '◼', xVal);
+				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], '▦', xVal);
 				LoadEnemyBoard();
 
 				AnnouncePlayerHit(true);
@@ -794,7 +794,7 @@ function EnemyShoot(x,y){
 	if (CheckPlayerShip() == true){
 		CheckEnemyAliveShips();
 
-		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '◼', eXVal);
+		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '▦', eXVal);
 		LoadPlayerBoard();
 
 		AnnounceEnemyHit(true);
@@ -984,19 +984,19 @@ function PlaceFullShip(direction) {
 	switch(direction){
 		case 0:
 			for (let i = 0; i < ships[s].length; i++){
-				matrix[ships[s].endLocY + i] = placeMarker(matrix[ships[s].endLocY + i], '◼', ships[s].startLocX);
+				matrix[ships[s].endLocY + i] = placeMarker(matrix[ships[s].endLocY + i], '▦', ships[s].startLocX);
 			}
 			break;
 		case 1:
 			for (let i = 0; i < ships[s].length; i++){
-				matrix[ships[s].endLocY - i] = placeMarker(matrix[ships[s].endLocY - i], '◼', ships[s].startLocX);
+				matrix[ships[s].endLocY - i] = placeMarker(matrix[ships[s].endLocY - i], '▦', ships[s].startLocX);
 			}
 			break;
 		case 2:
-			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], '◼', ships[s].endLocX, ships[s].startLocX - 1, ships[s].length);
+			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], '▦', ships[s].endLocX, ships[s].startLocX - 1, ships[s].length);
 			break;
 		case 3:
-			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], '◼', ships[s].startLocX , ships[s].endLocX, ships[s].length + 1);
+			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], '▦', ships[s].startLocX , ships[s].endLocX, ships[s].length + 1);
 			break;
 	}
 	AnnounceSetupProgression();
