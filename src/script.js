@@ -34,6 +34,8 @@ var gameBoard = document.querySelector('#grid-text');
 
 var playerShip_text = document.querySelector('#playerShips-text');
 var enemyShip_text = document.querySelector('#enemyShips-text');
+var score_text = document.querySelector('#score-text');
+var highScore_text = document.querySelector('#highScore-text');
 
 var i = 0;
 var announcement = '';
@@ -49,6 +51,10 @@ var gameEnd = false;
 //number of ships created; s para maikli lang poh
 var s = 0;
 var eS = 0;
+
+var score = 0;
+var highScore = 0;
+var numWrongShoot = 0;
 
 // fs = require('fs');
 
@@ -472,10 +478,12 @@ function ConfirmShoot(){
 				LoadEnemyBoard();
 
 				AnnouncePlayerHit(true);
+				UpdateScore();
 			} else {
 				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], '◉', xVal);
 				LoadEnemyBoard();
 				AnnouncePlayerHit(false);
+				numWrongShoot++;
 			}
 		} else {
 			alert("ERROR 003: COORDINATES ENTERED IS ALREADY BLOWN TO PIECES. PLEASE ENTER ANOTHER LOCATION TO SHOOT. THANK YOU.");
@@ -925,17 +933,53 @@ function EndGame(){
 		gameEnd = true;
 		Announce("ALL OF YOUR SHIPS ARE ANNIHILATED!", 20, 0);
 
+		if (score > highScore){
+			highScore = score;
+		}
+
 		setTimeout(function() {
 			Announce("TRY AGAIN NEXT TIME :(", 50, 0);
+
+			highScore_text.textContent = highScore.toString();
 		} , 3200);
+
+
 	} else if (eS == 0){
 		gameEnd = true;
 		Announce("ALL THE ENEMY SHIPS ARE ANNIHILATED!", 20, 0);
 
+		score += 150;
+
+
 		setTimeout(function() {
 			Announce("CONGRATULATIONS!", 50, 0);
+
+			if (score > highScore){
+				highScore = score;
+			}
+
+			score_text.textContent = "SCORE: " + score.toString();
+			highScore_text.textContent = highScore.toString();
+
 		} , 3200);
 	}
+}
+
+function UpdateScore(){
+
+	if (numWrongShoot < 10){
+		score += 50;
+	} else if (numWrongShoot < 16){
+		score += 40;
+	} else if (numWrongShoot < 24){
+		score += 30;
+	} else if (numWrongShoot < 32){
+		score += 20;
+	} else {
+		score += 10;
+	}
+
+	score_text.textContent = "SCORE: " + score.toString();
 }
 
 // EWAN FUNCTIONS
@@ -1100,6 +1144,9 @@ function Restart(){
 	setupProgress = 0;
 	gameEnd = false;
 
+	score = 0;
+	numWrongShoot = 0;
+
 	for (let i = 0; i < 5; i++){
 		ships[i].startLocX = 0;
 		ships[i].startLocY = 0;
@@ -1123,13 +1170,14 @@ function Restart(){
 	for (let i = 0; i < 8;i++){
 		matrix[i] = '';
 		for (let j = 0; j < 8;j++){
-			matrix[i] += 'ⵘ';
+			matrix[i] += '▦';
 		}
 	}
 	LoadBoard();
 
 	playerShip_text.textContent = "SHIPS: 0" + s.toString();
 	enemyShip_text.textContent = "SHIPS: 0" + eS.toString();
+	score_text.textContent = "SCORE: 0" + score.toString();
 
 	Initialize();
 

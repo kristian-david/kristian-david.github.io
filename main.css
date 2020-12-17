@@ -101,11 +101,11 @@ h1{
 
 
 #gameManager-text {
-	font-size: 2.25vw;
+	font-size: 2.2vw;
 	top: 0%;
 	left: 2.5%;
 	position: absolute;
-	letter-spacing: -0.05vw;
+	letter-spacing: -0.025vw;
 }
 
 .game-grid {
