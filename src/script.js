@@ -175,7 +175,7 @@ function Confirm(){
 				Announce("POSITION MOTHERSHIP (5 units)", 50, 0);
 				setupStart = true;
 				canType = true;
-			} , 2000);
+			} , 5000);
 		} else {
 			alert("ERROR 000: PLEASE INPUT 0 TO X AND Y TO PROCEED. THANK YOU.");
 		}
@@ -1056,16 +1056,83 @@ function PlaceFullShip(direction) {
 }
 
 //board for setup
-function CreateBoard(){
+
+function CreateBoard(){	
+
 
 	for (let i = 0; i < 8;i++){
 		matrix[i] = '';
 		for (let j = 0; j < 8;j++){
-			matrix[i] += '◎';
+			matrix[i] += '▦';
 		}
 	}
+
 	LoadBoard();
+
+	for (let i = 0; i < 8;i++){
+		for (let j = 0; j < 8;j++){
+			AnimateOneFunction(i,j);
+		}
+	}
+
+	setTimeout(function() { 
+
+		for (let i = 0; i < 8;i++){
+			for (let j = 0; j < 8;j++){
+				AnimateTwoFunction(i,j);
+			}
+		}
+
+	}, 2400); 
+
 }
+
+var animatorOneCounter = 0;
+var animatorTwoCounter = 0;
+
+function AnimateOneFunction(ith,jth) { 
+
+	setTimeout(function() { 
+
+		for (let i = ith; i < 8;i++){
+			matrix[i] = '';
+			for (let j = 0; j < 8;j++){
+				if (i <= ith && j <= jth){
+					matrix[i] += '◉';
+				} else {
+					matrix[i] += '▦';
+				}
+
+				LoadBoard();
+			}
+		}
+
+	}, 40 * animatorOneCounter); 
+
+	animatorOneCounter++;
+} 
+
+function AnimateTwoFunction(ith,jth) { 
+
+	setTimeout(function() { 
+
+		for (let i = ith; i < 8;i++){
+			matrix[i] = '';
+			for (let j = 0; j < 8;j++){
+				if (i <= ith && j <= jth){
+					matrix[i] += '◎';
+				} else {
+					matrix[i] += '◉';
+				}
+
+				LoadBoard();
+			}
+		}
+
+	}, 40 * animatorTwoCounter); 
+
+	animatorTwoCounter++;
+} 
 
 //board for actual game
 function CreatePlayerBoard(){
