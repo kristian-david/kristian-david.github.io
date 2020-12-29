@@ -120,7 +120,7 @@ var enemyShips = [new Ship(5), new Ship(4), new Ship(3), new Ship(3), new Ship(2
 function Initialize(){
 	Announce("WELCOME TO BATTLESHIP!", 50, 0);
 	setTimeout(function() {
-		Announce("Input X=0 Y=0 to Start Game!", 50, 0);
+		Announce("Input X = 0, Y = 0 to Start Game!", 50, 0);
 		canType = true;
 		canRestart = false;
 	} , 2400);
