@@ -42,6 +42,7 @@ var announcement = '';
 var speed = 50;
 
 var canType = false;
+var canRestart = false;
 
 var gameStart = false;
 var setupStart = false;
@@ -56,7 +57,7 @@ var score = 0;
 var highScore = 0;
 var numWrongShoot = 0;
 
-// fs = require('fs');
+const fs = require('fs');
 
 Initialize();
 
@@ -121,6 +122,7 @@ function Initialize(){
 	setTimeout(function() {
 		Announce("Input X=0 Y=0 to Start Game!", 50, 0);
 		canType = true;
+		canRestart = false;
 	} , 2400);
 }
 
@@ -168,13 +170,13 @@ function Confirm(){
 		if (xCoord == 0 && yCoord == 0) {
 			Announce("SET YOUR SHIPS!", 50, 0);
 			CreateBoard();
-			CreatePlayerBoard();
 			canType = false;
 
 			setTimeout(function() {
 				Announce("POSITION MOTHERSHIP (5 units)", 50, 0);
 				setupStart = true;
 				canType = true;
+				canRestart = true;
 			} , 5000);
 		} else {
 			alert("ERROR 000: PLEASE INPUT 0 TO X AND Y TO PROCEED. THANK YOU.");
@@ -1056,9 +1058,7 @@ function PlaceFullShip(direction) {
 }
 
 //board for setup
-
 function CreateBoard(){	
-
 
 	for (let i = 0; i < 8;i++){
 		matrix[i] = '';
@@ -1069,9 +1069,10 @@ function CreateBoard(){
 
 	LoadBoard();
 
+
 	for (let i = 0; i < 8;i++){
 		for (let j = 0; j < 8;j++){
-			AnimateOneFunction(i,j);
+			animateFunctionOne = AnimateOneFunction(i,j);
 		}
 	}
 
@@ -1079,7 +1080,7 @@ function CreateBoard(){
 
 		for (let i = 0; i < 8;i++){
 			for (let j = 0; j < 8;j++){
-				AnimateTwoFunction(i,j);
+				animateFunctionTwo = AnimateTwoFunction(i,j);
 			}
 		}
 
@@ -1170,6 +1171,11 @@ function LoadPlayerBoard(){
 // NODE EWAN NA FUNCTIONS
 
 function Restart(){
+
+	if (canRestart == true){
+
+	canRestart = false;
+
 	xCoord = 0;
 	yCoord = 0;
 
@@ -1246,9 +1252,14 @@ function Restart(){
 	enemyShip_text.textContent = "SHIPS: 0" + eS.toString();
 	score_text.textContent = "SCORE: 0" + score.toString();
 
+	animatorOneCounter = 0;
+	animatorTwoCounter = 0;
+
 	Initialize();
 
+
 	// ok may bug tayo. kapag nagposition, inde napoposition
+	}
 }
 
 function Save(){
@@ -1257,6 +1268,26 @@ function Save(){
   		console.log('Hello World > helloworld.txt');
 	});
 }
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+	if (req.url === '/'){
+		res.write('Hello World');
+		res.end();
+	}
+
+	if (req.url === '/api/courses'){
+		res.write(JSON.stringify([1, 2, 69]));
+		res.end();
+	}
+});
+
+
+
+server.listen(3000);
+
+console.log('Listening on port 3000...');
 
 form.addEventListener('submit', async function (event){
 	event.preventDefault();
