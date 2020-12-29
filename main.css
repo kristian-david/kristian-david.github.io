@@ -252,6 +252,9 @@ h1{
 	letter-spacing: 0px;
 	font-weight: bold;
 
+	transition-duration: 0.4s;
+	cursor: pointer;
+
 }
 
 .buttonA-text{
@@ -272,8 +275,36 @@ h1{
 	top: 32%;
 }
 
+.buttonA-text:hover{
+	font-size: 2.2vw;
+
+	  background: #FAFAFA;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#confirm-button:hover {
+	top: 31%;
+	right: 8%;
+	width: 84%;
+	height: 12%;
+
+	background: linear-gradient(45deg, #661c48, #372066);
+
+}
+
 #restart-button {
 	top: 59%;
+}
+
+#restart-button:hover {
+	top: 58%;
+	right: 8%;
+	width: 84%;
+	height: 12%;
+
+	background: #E0E0E0;
+
 }
 
 #save-button {
