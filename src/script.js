@@ -57,7 +57,7 @@ var score = 0;
 var highScore = 0;
 var numWrongShoot = 0;
 
-const fs = require('fs');
+// fs = require('fs');
 
 Initialize();
 
@@ -1269,31 +1269,9 @@ function Save(){
 	});
 }
 
-const http = require('http');
-
-const server = http.createServer((req, res) => {
-	if (req.url === '/'){
-		res.write('Hello World');
-		res.end();
-	}
-
-	if (req.url === '/api/courses'){
-		res.write(JSON.stringify([1, 2, 69]));
-		res.end();
-	}
-});
-
-
-
-server.listen(3000);
-
-console.log('Listening on port 3000...');
-
 form.addEventListener('submit', async function (event){
 	event.preventDefault();
 
-	
-	alert("SAD");
 
 	const response = await fetch(form.action, {
 		method: form.method,
