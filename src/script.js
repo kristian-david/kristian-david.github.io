@@ -170,6 +170,7 @@ function Confirm(){
 		if (xCoord == 0 && yCoord == 0) {
 			Announce("SET YOUR SHIPS!", 50, 0);
 			CreateBoard();
+			CreatePlayerBoard();
 			canType = false;
 
 			setTimeout(function() {
