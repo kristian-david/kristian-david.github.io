@@ -25,6 +25,8 @@ var enemyFoundYourShip = false;
 var enableAI = false;
 
 var checkShipNumberChange = 5;
+var checkPlayerShipNumberChange = 5;
+var shipHasSunken = false;
 //irerecord yung first na tamang shot sa isang ship
 var firstCorrectHitX = 0;
 var firstCorrectHitY = 0;
@@ -47,6 +49,7 @@ var canRestart = false;
 var gameStart = false;
 var setupStart = false;
 var setupProgress = 0;
+var shipSymbol = "▦";
 var gameEnd = false;
 
 //number of ships created; s para maikli lang poh
@@ -62,7 +65,7 @@ var numWrongShoot = 0;
 Initialize();
 
 class Ship {
-	constructor(length){
+	constructor(length, symbol){
 		this.length = length - 1;
 		this.startLocX = 0;
 		this.startLocY = 0;
@@ -72,6 +75,7 @@ class Ship {
 		this.locY = [];
 		this.health = length;
 		this.isDestroyed = false;
+		this.symbol = symbol;
 	}
 
 	CalculateSpaceTaken(){
@@ -114,8 +118,8 @@ class Ship {
 }
 
 // Gawa poh tayo ng array of objects based sa Ship class. bale 10 lahat; 5 player ship at 5 enemy ship
-var ships = [new Ship(5), new Ship(4), new Ship(3), new Ship(3), new Ship(2)];
-var enemyShips = [new Ship(5), new Ship(4), new Ship(3), new Ship(3), new Ship(2)];
+var ships = [new Ship(5,"▦"), new Ship(4,"▣"), new Ship(3,"▥"), new Ship(3,"▤"), new Ship(2,"◉")];
+var enemyShips = [new Ship(5,"▦"), new Ship(4,"▣"), new Ship(3,"▥"), new Ship(3,"▤"), new Ship(2,"◉")];
 
 function Initialize(){
 	Announce("WELCOME TO BATTLESHIP!", 50, 0);
@@ -174,7 +178,7 @@ function Confirm(){
 			canType = false;
 
 			setTimeout(function() {
-				Announce("POSITION MOTHERSHIP (5 units)", 50, 0);
+				Announce("POSITION MOTHERSHIP ▦ (5 units)", 50, 0);
 				setupStart = true;
 				canType = true;
 				canRestart = true;
@@ -206,25 +210,29 @@ function AnnounceSetupProgression(){
 			Announce("Set Orientation in X [↑(0),↓(1),←(2),→(3)]", 20, 0);
 			break;
 		case 2:
-			Announce("POSITION SPACE LAB (4 units)", 50, 0);
+			Announce("POSITION SPACE LAB ▣ (4 units)", 50, 0);
+			shipSymbol = "▣";
 			break;
 		case 3:
 			Announce("Set Orientation in X [↑(0),↓(1),←(2),→(3)]", 20, 0);
 			break;
 		case 4:
-			Announce("POSITION FIGHTER SHIP (3 units)", 50, 0);
+			Announce("POSITION FIGHTER SHIP ▥ (3 units)", 50, 0);
+			shipSymbol = "▥";
 			break;
 		case 5:
 			Announce("Set Orientation in X [↑(0),↓(1),←(2),→(3)]", 20, 0);
 			break;
 		case 6:
-			Announce("POSITION SPACE BUS (3 units)", 50, 0);
+			Announce("POSITION SPACE BUS ▤ (3 units)", 50, 0);
+			shipSymbol = "▤";
 			break;
 		case 7:
 			Announce("Set Orientation in X [↑(0),↓(1),←(2),→(3)]", 20, 0);
 			break;
 		case 8:
-			Announce("POSITION SPACE SATELLITE (2 units)", 50, 0);
+			Announce("POSITION SPACE SATELLITE ◉ (2 units)", 50, 0);
+			shipSymbol = "◉";
 			break;
 		case 9:
 			Announce("Set Orientation in X [↑(0),↓(1),←(2),→(3)]", 20, 0);
@@ -258,7 +266,7 @@ function ConfirmSetupPosition(){
 			ships[s].startLocX = xVal;
 			ships[s].startLocY = yVal;
 
-			matrix[yVal] = placeMarker(matrix[yVal], '▦', xVal);
+			matrix[yVal] = placeMarker(matrix[yVal], shipSymbol, xVal);
 			LoadBoard();
 
 			//ANNOUNCE YUNG PROGRESSION NG SETUP
@@ -403,9 +411,11 @@ function SetupEnemyBoard(){
 	for (let i = 0; i < 8;i++){
 		enemyMatrix[i] = '';
 		for (let j = 0; j < 8;j++){
-			enemyMatrix[i] += '◎';
+			enemyMatrix[i] += '▢';
 		}
 	}
+
+	SetupEnemyBoardWithPlayerShips();
 
 	RandomizeEnemyLocation();
 
@@ -413,6 +423,24 @@ function SetupEnemyBoard(){
 
 	eS = 5;
 	enemyShip_text.textContent = "SHIPS: 0" + eS.toString();
+}
+
+function SetupEnemyBoardWithPlayerShips(){
+
+	let playerX = 0;
+	let playerY = 0;
+
+	for (let playerX = 0; playerX < 8;playerX++){
+		for (let playerY = 0; playerY < 8;playerY++){
+			for (let i = 0; i < 5; i++){
+				if (ships[i].locX.includes(playerX) && ships[i].locY.includes(playerY)){
+					shipSymbol = ships[i].symbol;
+					playerMatrix[playerY] = placeMarker(playerMatrix[playerY], shipSymbol, playerX);
+				}
+			}
+		}
+	}
+
 }
 
 function RandomizeEnemyLocation(){
@@ -477,13 +505,13 @@ function ConfirmShoot(){
 			if (CheckEnemyShip() == true){
 				CheckAliveShips();
 
-				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], '▦', xVal);
+				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], shipSymbol, xVal);
 				LoadEnemyBoard();
 
 				AnnouncePlayerHit(true);
 				UpdateScore();
 			} else {
-				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], '◉', xVal);
+				enemyMatrix[yVal] = placeMarker(enemyMatrix[yVal], '✛', xVal);
 				LoadEnemyBoard();
 				AnnouncePlayerHit(false);
 				numWrongShoot++;
@@ -505,6 +533,7 @@ function CheckEnemyShip(){
 		if (enemyShips[i].locX.includes(xVal) && enemyShips[i].locY.includes(yVal)){
 			enemyShips[i].TakeDamage();
 			shipShot = true;
+			shipSymbol = enemyShips[i].symbol;
 		} else {
 			//alert("YOU MISSED!");
 		}
@@ -521,6 +550,12 @@ function CheckAliveShips(){
 			eS -= 1;
 		}
 	}
+
+	if (eS < checkPlayerShipNumberChange){
+		shipHasSunken = true;
+	}
+
+	checkPlayerShipNumberChange = eS;
 	enemyShip_text.textContent = "SHIPS: 0" + eS.toString();
 
 	EndGame();
@@ -530,33 +565,53 @@ function AnnouncePlayerHit(hit){
 
 	if (gameEnd == false){
 	if (hit == true){
-		var randPhrase = Math.floor(Math.random() * 9); 
 
-		switch(randPhrase){
-		case 0:
-			Announce("NICE SHOT!", 20, 0);
-			break;
-		case 1:
-			Announce("RIGHT IN THE ENEMY SHIP!", 50, 0);
-			break;
-		case 2:
-			Announce("SUCCESSFUL SHOT!", 20, 0);
-			break;
-		case 3:
-			Announce("NICE HIT!", 50, 0);
-			break;
-		case 4:
-			Announce("GOOD SHOT!", 20, 0);
-			break;
-		case 5:
-			Announce("IT'S A HIT!", 20, 0);
-			break;
-		case 6:
-			Announce("A SUCCESSFUL HIT!", 50, 0);
-			break;
-		case 7:
-			Announce("SUCCESS!", 20, 0);
-			break;
+		if (shipHasSunken == true){
+
+			var randPhrase = Math.floor(Math.random() * 3); 
+
+			switch(randPhrase){
+			case 0:
+				Announce("YOU HAVE DESTROYED AN ENEMY SHIP!", 20, 0);
+				break;
+			case 1:
+				Announce("ENEMY SHIP IS ANNIHILATED!", 50, 0);
+				break;
+			case 2:
+				Announce("ENEMY SHIP EXPLODES!", 20, 0);
+				break;
+			}
+
+			shipHasSunken = false;
+
+		} else {
+
+
+			var randPhrase = Math.floor(Math.random() * 7); 
+
+			switch(randPhrase){
+			case 0:
+				Announce("NICE SHOT!", 20, 0);
+				break;
+			case 1:
+				Announce("YOU DID THE RIGHT SHOT!", 50, 0);
+				break;
+			case 2:
+				Announce("SUCCESSFUL SHOT!", 20, 0);
+				break;
+			case 3:
+				Announce("NICE HIT!", 50, 0);
+				break;
+			case 4:
+				Announce("GOOD SHOT!", 20, 0);
+				break;
+			case 5:
+				Announce("IT'S A HIT!", 20, 0);
+				break;
+			case 6:
+				Announce("A SUCCESSFUL HIT!", 50, 0);
+				break;
+			}
 		}
 	} else {
 		var randPhrase = Math.floor(Math.random() * 6); 
@@ -805,7 +860,7 @@ function EnemyShoot(x,y){
 	if (CheckPlayerShip() == true){
 		CheckEnemyAliveShips();
 
-		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '▦', eXVal);
+		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '✛', eXVal);
 		LoadPlayerBoard();
 
 		AnnounceEnemyHit(true);
@@ -824,7 +879,7 @@ function EnemyShoot(x,y){
 			enemyFoundYourShip = false;
 		}
 	} else {
-		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '◉', eXVal);
+		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '✛', eXVal);
 		LoadPlayerBoard();
 		AnnounceEnemyHit(false);
 		lastHitCorrect = false;
@@ -847,6 +902,12 @@ function CheckPlayerShip(){
 		if (ships[i].locX.includes(eXVal) && ships[i].locY.includes(eYVal)){
 			ships[i].TakeDamage();
 			shipShot = true;
+
+			if (score > 0){
+				score -= 10;
+				score_text.textContent = "SCORE: " + score.toString();
+			}
+			//shipSymbol = ships[i].symbol;
 		}
 	}
 
@@ -867,6 +928,7 @@ function CheckEnemyAliveShips(){
 	//check if may nasirang ship si enemy
 	if (s < checkShipNumberChange){
 		enemyFoundYourShip = true;
+		shipHasSunken = true;
 	}
 
 	checkShipNumberChange = s;
@@ -878,27 +940,49 @@ function AnnounceEnemyHit(hit){
 
 	if (gameEnd == false){
 	if (hit == true){
-		var randPhrase = Math.floor(Math.random() * 6); 
 
-		switch(randPhrase){
-		case 0:
-			Announce("YOU GOT HIT!", 20, 0);
-			break;
-		case 1:
-			Announce("ENEMY HITTED YOU!", 50, 0);
-			break;
-		case 2:
-			Announce("THE ENEMY FOUND YOUR SHIP!", 20, 0);
-			break;
-		case 3:
-			Announce("NICE SHOT BY THE ENEMY!", 50, 0);
-			break;
-		case 4:
-			Announce("GOOD SHOT BY THE ENEMY!", 20, 0);
-			break;
-		case 5:
-			Announce("IT'S A HIT!", 20, 0);
-			break;
+		if (shipHasSunken == true){
+
+			var randPhrase = Math.floor(Math.random() * 3); 
+
+			switch(randPhrase){
+			case 0:
+				Announce("A SHIP OF YOURS WAS DESTROYED!", 20, 0);
+				break;
+			case 1:
+				Announce("A SHIP OF YOURS WAS ANNIHILATED!", 50, 0);
+				break;
+			case 2:
+				Announce("ENEMY DESTROYED YOUR SHIP!", 20, 0);
+				break;
+			}
+
+			shipHasSunken = false;
+
+		} else {
+
+			var randPhrase = Math.floor(Math.random() * 6); 
+
+			switch(randPhrase){
+			case 0:
+				Announce("YOU GOT HIT!", 20, 0);
+				break;
+			case 1:
+				Announce("ENEMY HITTED YOU!", 50, 0);
+				break;
+			case 2:
+				Announce("THE ENEMY FOUND YOUR SHIP!", 20, 0);
+				break;
+			case 3:
+				Announce("NICE SHOT BY THE ENEMY!", 50, 0);
+				break;
+			case 4:
+				Announce("GOOD SHOT BY THE ENEMY!", 20, 0);
+				break;
+			case 5:
+				Announce("IT'S A HIT!", 20, 0);
+				break;
+			}
 		}
 	} else {
 		var randPhrase = Math.floor(Math.random() * 6); 
@@ -935,6 +1019,7 @@ function EndGame(){
 	if (s == 0){
 		gameEnd = true;
 		Announce("ALL OF YOUR SHIPS ARE ANNIHILATED!", 20, 0);
+		canRestart = false;
 
 		if (score > highScore){
 			highScore = score;
@@ -942,6 +1027,7 @@ function EndGame(){
 
 		setTimeout(function() {
 			Announce("TRY AGAIN NEXT TIME :(", 50, 0);
+			canRestart = true;
 
 			highScore_text.textContent = highScore.toString();
 		} , 3200);
@@ -950,12 +1036,14 @@ function EndGame(){
 	} else if (eS == 0){
 		gameEnd = true;
 		Announce("ALL THE ENEMY SHIPS ARE ANNIHILATED!", 20, 0);
+		canRestart = false;
 
 		score += 150;
 
 
 		setTimeout(function() {
-			Announce("CONGRATULATIONS!", 50, 0);
+			Announce("CONGRATULATIONS! PLEASE PLAY AGAIN!", 50, 0);
+			canRestart = true;
 
 			if (score > highScore){
 				highScore = score;
@@ -1031,19 +1119,19 @@ function PlaceFullShip(direction) {
 	switch(direction){
 		case 0:
 			for (let i = 0; i < ships[s].length; i++){
-				matrix[ships[s].endLocY + i] = placeMarker(matrix[ships[s].endLocY + i], '▦', ships[s].startLocX);
+				matrix[ships[s].endLocY + i] = placeMarker(matrix[ships[s].endLocY + i], shipSymbol, ships[s].startLocX);
 			}
 			break;
 		case 1:
 			for (let i = 0; i < ships[s].length; i++){
-				matrix[ships[s].endLocY - i] = placeMarker(matrix[ships[s].endLocY - i], '▦', ships[s].startLocX);
+				matrix[ships[s].endLocY - i] = placeMarker(matrix[ships[s].endLocY - i], shipSymbol, ships[s].startLocX);
 			}
 			break;
 		case 2:
-			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], '▦', ships[s].endLocX, ships[s].startLocX - 1, ships[s].length);
+			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], shipSymbol, ships[s].endLocX, ships[s].startLocX - 1, ships[s].length);
 			break;
 		case 3:
-			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], '▦', ships[s].startLocX , ships[s].endLocX, ships[s].length + 1);
+			matrix[ships[s].endLocY] = placeMarkerHorizontally(matrix[ships[s].endLocY], shipSymbol, ships[s].startLocX , ships[s].endLocX, ships[s].length + 1);
 			break;
 	}
 	AnnounceSetupProgression();
@@ -1100,7 +1188,7 @@ function AnimateOneFunction(ith,jth) {
 			matrix[i] = '';
 			for (let j = 0; j < 8;j++){
 				if (i <= ith && j <= jth){
-					matrix[i] += '◉';
+					matrix[i] += '▣';
 				} else {
 					matrix[i] += '▦';
 				}
@@ -1122,9 +1210,9 @@ function AnimateTwoFunction(ith,jth) {
 			matrix[i] = '';
 			for (let j = 0; j < 8;j++){
 				if (i <= ith && j <= jth){
-					matrix[i] += '◎';
+					matrix[i] += '▢';
 				} else {
-					matrix[i] += '◉';
+					matrix[i] += '▣';
 				}
 
 				LoadBoard();
@@ -1141,7 +1229,7 @@ function CreatePlayerBoard(){
 	for (let i = 0; i < 8;i++){
 		playerMatrix[i] = '';
 		for (let j = 0; j < 8;j++){
-			playerMatrix[i] += '◎';
+			playerMatrix[i] += '▢';
 		}
 	}
 }
@@ -1200,6 +1288,9 @@ function Restart(){
 	enableAI = false;
 
 	checkShipNumberChange = 5;
+	checkPlayerShipNumberChange = 5;
+
+	shipHasSunken = false;
 
 	firstCorrectHitX = 0;
 	firstCorrectHitY = 0;
@@ -1228,7 +1319,7 @@ function Restart(){
 		ships[i].endLocY = 0;
 		ships[i].locX = [];
 		ships[i].locY = [];
-		ships[i].health = ships[i].length;
+		ships[i].health = ships[i].length + 1;
 		ships[i].isDestroyed = false;
 
 		enemyShips[i].startLocX = 0;
@@ -1237,7 +1328,7 @@ function Restart(){
 		enemyShips[i].endLocY = 0;
 		enemyShips[i].locX = [];
 		enemyShips[i].locY = [];
-		enemyShips[i].health = enemyShips[i].length;
+		enemyShips[i].health = enemyShips[i].length + 1;
 		enemyShips[i].isDestroyed = false;
 	}
 
@@ -1255,6 +1346,8 @@ function Restart(){
 
 	animatorOneCounter = 0;
 	animatorTwoCounter = 0;
+
+	document.querySelector('.game-grid').style.backgroundImage="url(game-grid.png)";
 
 	Initialize();
 
