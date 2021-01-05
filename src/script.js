@@ -31,6 +31,10 @@ var shipHasSunken = false;
 var firstCorrectHitX = 0;
 var firstCorrectHitY = 0;
 
+//record kung anong ship tinamaan ng enemy
+var hittedShipSymbol = " ";
+var hittedShipReach = 4;
+
 var gameText = document.querySelector('#gameManager-text');
 var gameBoard = document.querySelector('#grid-text');
 
@@ -803,11 +807,29 @@ function DetermineFullShipLocation(){
 
 	let giveUp = true;
 
+	switch(hittedShipSymbol){
+		case "▦":
+			hittedShipReach = 4;
+			break;
+		case "▣":
+			hittedShipReach = 3;
+			break;
+		case "▥":
+			hittedShipReach = 2;
+			break;
+		case "▤":
+			hittedShipReach = 2;
+			break;
+		case "◉":
+			hittedShipReach = 1;
+			break;
+	}
+
 	if (orientationPredicted == "horizontal"){
 
 		for (let i = 0; i < 9; i++){
 
-			predictX = (firstCorrectHitX - 4) + i;
+			predictX = (firstCorrectHitX - hittedShipReach) + i;
 
 			predictXString = predictX.toString();
 			predictYString = predictY.toString();
@@ -827,7 +849,7 @@ function DetermineFullShipLocation(){
 	} else if (orientationPredicted == "vertical"){
 		for (let i = 0; i < 9; i++){
 
-			predictY = (firstCorrectHitY - 4) + i;
+			predictY = (firstCorrectHitY - hittedShipReach) + i;
 
 			predictXString = predictX.toString();
 			predictYString = predictY.toString();
@@ -860,15 +882,15 @@ function EnemyShoot(x,y){
 	if (CheckPlayerShip() == true){
 		CheckEnemyAliveShips();
 
-		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '✛', eXVal);
-		LoadPlayerBoard();
-
-		AnnounceEnemyHit(true);
-		lastHitCorrect = true;
+		if (playerMatrix[eYVal][eXVal] != "✛" && enableAI == false){
+			hittedShipSymbol = playerMatrix[eYVal][eXVal];
+		}
 
 		//If AI is determining orientation tas nahit nya correctly, then AI needs to do next step.
 		if (enableAI == true && orientationFound == false){
-			orientationFound = true;
+			if (hittedShipSymbol == playerMatrix[eYVal][eXVal]){
+				orientationFound = true;
+			}
 		} else {
 			enableAI = true;
 		}
@@ -877,7 +899,14 @@ function EnemyShoot(x,y){
 		if (enemyFoundYourShip == true){
 			enableAI = false;
 			enemyFoundYourShip = false;
+			orientationFound = false;
 		}
+
+		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '✛', eXVal);
+		LoadPlayerBoard();
+
+		AnnounceEnemyHit(true);
+		lastHitCorrect = true;
 	} else {
 		playerMatrix[eYVal] = placeMarker(playerMatrix[eYVal], '✛', eXVal);
 		LoadPlayerBoard();
@@ -927,6 +956,7 @@ function CheckEnemyAliveShips(){
 	EndGame();
 	//check if may nasirang ship si enemy
 	if (s < checkShipNumberChange){
+		orientationFound = false;
 		enemyFoundYourShip = true;
 		shipHasSunken = true;
 	}
