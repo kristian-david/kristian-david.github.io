@@ -1,72 +1,824 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>BATTLESHIP</title>
-	<link rel="stylesheet" type="text/css" href="main.css">
-	<link rel="icon" href="icon.png">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristian David</title>
+    
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 </head>
-<body>
+<body class="main-content">
 
-<div class="view-panel">
-	
-	<div class="upper-part"></div>
-
-	<div class="lower-part">
-
-		<h1 id="gameManager-text"> </h1>
-		<div class="game-panel"></div>
-		<div class="game-grid"><h1 id="grid-text">▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦ ▦▦▦▦▦▦▦▦</h1></div>
+    <div class = "background-color"></div>
+    
+    <header class="container header active" id="home">
 
 
-		<div class="info-panel">
-			
-			<h1 class="info-text" id="infoPlayer-text">PLAYER DATA</h1>
-			<h1 class="remaining-text" id="playerShips-text">SHIPS: 00</h1>
-			<h1 class="remaining-text" id="score-text">SCORE: 00</h1>
+        <div class="header-content">
+            <div class="left-header">
+                <h1 class="name">
+                    Hi, I'm <span>Kristian David.</span> <br>
+                </h1>
 
-			<h1 class="info-text" id="infoEnemy-text">ENEMY DATA</h1>
-			<h1 class="remaining-text" id="enemyShips-text">SHIPS: 00</h1>
+                <h2>A Digital Creator from Metro Manila, 🇵🇭</h2>
+                
+                <p class="short-bio">
+                    <br><br>
+                    I develop games🕹️ I produce music🎵 I do 3D modeling🧊 <br>
+                    I edit videos🎥 I animate characters💨 I code projects👨🏽‍💻 <br>
+                    <br>
+                    <span>TO SHORTEN IT:</span> I'm a digital creator!
+                </p>
 
-			<h1 class="infoDatas-text" id="infoHighScore-text">HIGH SCORE</h1>
-			<h1 class="remaining-text" id="highScore-text">00</h1>
+                <div class="btn-con">
+                    <a href="CV.png" download="DAVID-CV" class="main-btn">
+                        <span class="btn-text">Download CV</span>
+                        <span class="btn-icon"><i class="fas fa-download"></i></span>
+                    </a>
+                </div>
+            </div>
 
-		</div>
+            <div class="right-header">
+                <model-viewer id="room" src="3d/Room.glb" min-camera-orbit="-50deg 22.5deg 22.5deg"max-camera-orbit="50deg 90deg 60deg" camera-controls disable-zoom></model-viewer>
 
-		<div class="control-panel">
-			<div class="text-panel">
+            </div>
 
-				<h1 class="info-text" id="control-text">CONTROL CENTER</h1>
-				<h1 class="info-text" id="system-text">SYSTEM SETTINGS</h1>
+        </div>
+    </header>
+    <main>
+        <section class="container about" id="about">
+            
+            <div class="main-title">
+                <h2>About <span>me</span><span class="bg-text">kristian</span></h2>
+            </div>
+            <div class="about-container">
+                <div class="left-about">
+                    <model-viewer id="circular-frame" src="3d/Circular-Frame.glb" min-camera-orbit="Infinity 89deg 22.5deg" max-camera-orbit="Infinity 91   deg 60deg"
+                    camera-controls disable-zoom auto-rotate></model-viewer>
+                    <script type="module">
+                        const modelViewer = document.querySelector("model-viewer#circular-frame");
+                        var darkMode = true;
+                        modelViewer.environmentImage = 'neutral';
+                        modelViewer.exposure = 0.72;
+                        modelViewer.shadowIntensity = 0.32;
+                        
+                        document.querySelector(".theme-btn").addEventListener("click", (event) => {
+                        
+                            const [material] = modelViewer.model.materials;
+                      
+                            if(darkMode == true){
+                                material.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.30, 0.47]);
+                                darkMode = false;
+                            } else {
+                                material.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
+                                darkMode = true;
+                            }
+                      
+                      });
+                        
+                        </script>
+                </div>
+                <div class="right-about">
+                    <h4>Quick Bio</h4>
+                    <p>
+                        Hi, I’m Kristian! I am a college student with a certain interest in
+                        emerging technologies, believing that these new techs can help solve
+                        age-old issues that affect humanity.
+                        <br><br>
+	                    Aside from that, I also hone my craft in creative skills such
+                        as creating IG filters, music production, video editing, and etc.
 
-				<div class="coordinate-inputs">
-					<input type="text" name="text" class="text-input" id="textX-input" placeholder="X" maxlength="1" required>
-					<input type="text" onkeyup="this.value = this.value.toUpperCase();" name="text" class="text-input" id="textY-input" placeholder="Y" maxlength="1" required>
-					<br>
-					<button onclick="Confirm()" name="confirm" class="button" id="confirm-button"><div class="buttonA-text">CONFIRM</div></button>
-				</div>
+                    </p>
+                    <div class="btn-con">
+                        <a href="CV.png" download="DAVID-CV" class="main-btn">
+                            <span class="btn-text">Download CV</span>
+                            <span class="btn-icon"><i class="fas fa-download"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="about-stats">
+                <h4 class="stat-title">My Skills</h4>
+                <div class="skills">
+                    <div class="skill">
+                        <p class="skill-title">Game Development</p>
+                        <p class="skill-text">Since 2016</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">XR Development</p>
+                        <p class="skill-text">Since 2017</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">Video Editing</p>
+                        <p class="skill-text">Since 2016</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">2D Animation</p>
+                        <p class="skill-text">Since 2021</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">3D Modeling</p>
+                        <p class="skill-text">Since 2018</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">Graphic Design</p>
+                        <p class="skill-text">Since 2016</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">Android Development</p>
+                        <p class="skill-text">Since 2021</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">Website Development</p>
+                        <p class="skill-text">Since 2014</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">Music Production</p>
+                        <p class="skill-text">Since 2020</p>
+                    </div>
+                    <div class="skill">
+                        <p class="skill-title">Fire Dancing</p>
+                        <p class="skill-text">Since 2010</p>
+                    </div>
+                </div>
+            </div>
+            <h4 class="stat-title">Education</h4>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="tl-icon">
+                        <i class="fas fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <p class="tl-duration">2020 - present</p>
+                    <h5>University of the Philippines Los Baños<span> - UPLB</span></h5>
+                    <p>
+                        BS Computer Science
+                    </p>
+                </div>
+                <div class="timeline-item">
+                    <div class="tl-icon">
+                        <i class="fas fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <p class="tl-duration">2018 - 2020</p>
+                    <h5>Quezon City Science High School<span> - QCSHS</span></h5>
+                    <p>
+                        Senior High School - STEM
+                    </p>
+                </div>
+                <div class="timeline-item">
+                    <div class="tl-icon">
+                        <i class="fas fa-solid fa-graduation-cap    "></i>
+                    </div>
+                    <p class="tl-duration">2014 - 2018</p>
+                    <h5>Quezon City Science High School<span> - QCSHS</span></h5>
+                    <p>
+                        Junior High School
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="container" id="portfolio">
 
-				
 
-				<div class="system-inputs">
-					<button onclick="Restart()" name="restart" class="button" id="restart-button"><div class="buttonB-text">RESTART</div></button>
-					<button onclick="Save()" name="save" class="button" id="save-button"><div class="buttonB-text">SAVE</div></button>
-					<button name="load" class="button" id="load-button"><div class="buttonB-text">LOAD</div></button>
-				</div>
-			
-			</div>
-			
-		</div>
+            <div class="main-title">
+                <h2>Video <span>Games</span><span class="bg-text">Game Dev</span></h2>
+            </div>
+            <p class="port-text">
+               Check out my games <a href="https://kristiandvd.itch.io/"><b><u>here</u></b></a>
+            </p>
 
-	</div>
+            <div class="game-portfolio">
+                <video autoplay muted loop id="game-A">
+                    <source src="img/games/gabi-gabi.mp4" type="video/mp4">
+                  </video>
+                  
+                  <!-- Optional: some overlay text to describe the video -->
+                  <div class="game-content">
+                    <h1><a href="https://kristiandvd.itch.io/gabigabi"><u>Gabi Gabi</u></a></h1>
+                    <p>A 2.5D Horror Game set in the Philippines 🇵🇭</p>
+                    <!-- Use a button to pause/play the video with JavaScript -->
+                    <button class="game-button" id="game-buttonA" onclick="pauseGameA()">Pause</button>
+    
+                    <script>
+                        var videoA = document.getElementById("game-A");
+                        var btnA = document.getElementById("game-buttonA");
+                        
+                        // Pause and play the video, and change the button text
+                        function pauseGameA() {
+                          if (videoA.paused) {
+                            videoA.play();
+                            btnA.innerHTML = "Pause";
+                          } else {
+                            videoA.pause();
+                            btnA.innerHTML = "Play";
+                          }
+                        }
+                        </script>
+                  </div>
 
-	<p id="credits-text"> Kristian David, 2020</p>
+                  <video autoplay muted loop id="game-B">
+                    <source src="img/games/sea-scrapper.mp4" type="video/mp4">
+                  </video>
+                  
+                  <div class="game-content">
+                    <h1><a href="https://kristiandvd.itch.io/sea-scrapper"><u>Sea Scrapper</u></a></h1>
+                    <p>Made in 2 weeks for the SeaJam - #TeamSeas! 🌊</p>
+                    <button class="game-button" id="game-buttonB" onclick="pauseGameB()">Pause</button>
+                    <script>
+                        var videoB = document.getElementById("game-B");
+                        var btnB = document.getElementById("game-buttonB");
+                        
+                        function pauseGameB() {
+                          if (videoB.paused) {
+                            videoB.play();
+                            btnB.innerHTML = "Pause";
+                          } else {
+                            videoB.pause();
+                            btnB.innerHTML = "Play";
+                          }
+                        }
+                        </script>
+                  </div>
+            </div>
+
+            <div class="main-title">
+                <h2>Instagram <span>Filters</span><span class="bg-text">AR</span></h2>
+            </div>
+            <p class="port-text">
+                Check them out on my <a href="https://www.instagram.com/kristiandvd/"><b><u>Instagram</u></b></a>, Don't forget to follow!
+            </p>
+
+            <div class="portfolios">
+                <div class="portfolio-item" id="filter-portfolio-item">
+                    <div class="image">
+                        <img src="img/filters/filter1.gif" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Ghost Vloggers</h3>
+                        <div class="icons">
+                            <p>Currently Disabled :(</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" id="filter-portfolio-item">
+                    <div class="image">
+                        <img src="img/filters/filter2.gif" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Pewds Cocomelon</h3>
+                        <div class="icons">
+                            <a href="https://www.instagram.com/ar/272556677301246/" class="icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" id="filter-portfolio-item">
+                    <div class="image">
+                        <img src="img/filters/filter3.gif" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Wish Bus</h3>
+                        <div class="icons">
+                            <a href="https://www.instagram.com/ar/809771082874411/" class="icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
 
 
-</div>
+            <div class="THREE-works">
+                
+                <div class="main-title">
+                    <h2>3D Renders</h2>
+                </div>
 
-<code id="code"></code>
+                <div class="portfolios">
+                    <div class="THREE-portfolio-item">
+                        <div class="image">
+                            <img src="img/3d renders/3d-1.png" alt="">
+                        </div>
+                        <h3>April 2019</h3>
+                        <p>Rendered in Unity 3D</p>
+                    </div>
+                    <div class="THREE-portfolio-item">
+                        <div class="image">
+                            <img src="img/3d renders/3d-2.gif" alt="">
+                        </div>
+                        <h3>May 2020</h3>
+                        <p>Rendered and Animated in Blender</p>
+                    </div>
+                    <div class="THREE-portfolio-item">
+                        <div class="image">
+                            <img src="img/3d renders/3d-3.png" alt="">
+                        </div>
+                        <h3>July 2020</h3>
+                        <p>Rendered in Blender</p>
+                    </div>
+                </div>
+                
+            </div>
 
-<script src="src/script.js"></script>
+            <div class="main-title">
+                <h2>2D <span>Animation</span><span class="bg-text">Video.Editing</span></h2>
+            </div>
+            <p class="port-text">
+                Here's an animation I created for a contest.
+            </p>
 
+            <video width="90%" height="auto" controls id="animation-video">
+                <source src="img/animation/ANIMCONTEST2021_Student_KristianPaoloDavid.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video> 
+
+
+
+            <div class="main-title">
+                <h2>My <span>Music</span><span class="bg-text">Music</span></h2>
+            </div>
+            <p class="port-text">
+                Check out my mixtapes on my <a href="https://www.youtube.com/channel/UCuSwRexVyHQ0HGTnVCHqfVQ"><b><u>Youtube</u></b></a>, Don't forget to subscribe!
+            </p>
+
+            <div class="portfolios" id="mixtapes">
+                <a href="https://www.youtube.com/watch?v=1a7CoHYNcgs" class="icon">
+                    <model-viewer id="cassetteA" src="3d/Cassette1.glb" autoplay disable-zoom camera-orbit="calc(-1.5rad + env(window-scroll-y) * 1rad)
+                    calc(0deg + env(window-scroll-y) * 2* 60deg)calc(30m - env(window-scroll-y) * 15m)"></model-viewer>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=8A5PLpyV_C0" class="icon">
+                    <model-viewer id="cassetteB" src="3d/Cassette2.glb" autoplay disable-zoom camera-orbit="calc(-1rad + env(window-scroll-y) * 2rad)
+                    calc(0deg + env(window-scroll-y) *3* 70deg)calc(30m - env(window-scroll-y) * 15m)"></model-viewer>
+                </a>
+
+                <script type="module">
+                    const cassetteA = document.querySelector("model-viewer#cassetteA");
+                    const cassetteB = document.querySelector("model-viewer#cassetteB");
+                    var darkMode = true;
+                    
+
+                    document.querySelector(".theme-btn").addEventListener("click", (event) => {
+                    
+                        const aMatOutside = cassetteA.model.materials[0];
+                        const aMatInside = cassetteA.model.materials[1];
+
+                        const bMatOutside = cassetteB.model.materials[0];
+                        const bMatInside = cassetteB.model.materials[1];
+
+                        if(darkMode == true){
+                            aMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
+                            aMatInside.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.05, 0.05]);
+                            
+                            bMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
+                            bMatInside.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.05, 0.05]);
+
+                            darkMode = false;
+                        } else {
+                            aMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.95, 0.95, 0.95]);
+                            aMatInside.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.4, 0.4]);
+
+                            bMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.95, 0.95, 0.95]);
+                            bMatInside.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.4, 0.4]);
+
+                            darkMode = true;
+                        }
+                  
+                  });
+                </script>
+            </div>
+
+            <div class="main-title">
+                <h2><span>Learn</span> More<span class="bg-text">Learn More</span></h2>
+            </div>
+            <p class="port-text">
+                Learn more about some of my projects.
+            </p>
+            <div class="portfolios">
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port1.jpg" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="#" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port2.jpg" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="#" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port3.jpg" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="#" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port4.jpg" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="#" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port5.jpg" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="#" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="image">
+                        <img src="img/port2.jpg" alt="">
+                    </div>
+                    <div class="hover-items">
+                        <h3>Project Source</h3>
+                        <div class="icons">
+                            <a href="#" class="icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="#" class="icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container" id="achievements">
+            <div class="THREE-achievements">
+                <model-viewer id="medal" src="3d/Medal.glb" auto-rotate></model-viewer>
+                <model-viewer id="trophy" src="3d/Trophy.glb" auto-rotate></model-viewer>
+                <script type="module">
+                    const modelViewer = document.querySelector("model-viewer#medal");
+                    var darkMode = true;
+                    modelViewer.environmentImage = 'neutral';
+                    
+                    document.querySelector(".theme-btn").addEventListener("click", (event) => {
+                    
+                        const materialOutside = modelViewer.model.materials[1];
+                        const materialInside = modelViewer.model.materials[2];
+                  
+                        if(darkMode == true){
+                            materialOutside.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.30, 0.47]);
+                            materialInside.pbrMetallicRoughness.setBaseColorFactor([0.99, 0.99, 0.99]);
+                            darkMode = false;
+                        } else {
+                            materialOutside.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
+                            materialInside.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
+                            darkMode = true;
+                        }
+                  
+                  });
+                    
+                    </script>
+            </div>
+            <div class="achievements-content">
+                <div class="main-title">
+                    <h2>My <span>Achievements</span><span class="bg-text">Achievements</span></h2>
+                </div>
+                <div class="achievements">
+                    <div class="achievement">
+                        <img src="img/achievements/achievement1.gif" alt="">
+                        <div class="achievements-text">
+                            <h4>
+                                DOST CALABARZON Animation Contest
+                            </h4>
+                            <p>
+                                1<sup>st</sup> Place <br>
+                                Online, Region IV-A <br>
+                                September 23, 2021
+                            </p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <img src="img/achievements/achievement2.gif" alt="">
+                        <div class="achievements-text">
+                            <h4>
+                                International Atomic Energy Agency
+                            </h4>
+                            <p>
+                                Top 25% of all teams participating <br>
+                                <s>Moscow, Russia</s> (STAND WITH UKRAINE 🇺🇦) <br>
+                                June 2020 (Cancelled due to COVID-19)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <img src="img/achievements/achievement3.gif" alt="">
+                        <div class="achievements-text">
+                            <h4>
+                                E-ICON World Contest
+                            </h4>
+                            <p>
+                                2<sup>nd</sup> Place <br>
+                                Busan, South Korea 🇰🇷 <br>
+                                August 18-23, 2019
+                            </p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <img src="img/achievements/achievement4.gif" alt="">
+                        <div class="achievements-text">
+                            <h4>
+                                Regional Science and Technology Fair 2019
+                            </h4>
+                            <p>
+                                2<sup>nd</sup> Place <br>
+                                Mandaluyong City, NCR <br>
+                                November, 2019
+                            </p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <img src="img/achievements/achievement5.gif" alt="">
+                        <div class="achievements-text">
+                            <h4>
+                                National Science and Technology Fair 2019
+                            </h4>
+                            <p>
+                                Finalist <br>
+                                Tagaytay City, Region IV-A <br>
+                                February 18-23, 2019
+                            </p>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <img src="img/achievements/achievement6.gif" alt="">
+                        <div class="achievements-text">
+                            <h4>
+                                Regional Science and Technology Fair 2018
+                            </h4>
+                            <p>
+                                1<sup>st</sup> Place <br>
+                                Caloocan City, NCR <br>
+                                November 23-24, 2018
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container contact" id="contact">
+            <div class="THREE-contact">
+                <model-viewer id="phone" src="3d/Phone.glb" interpolation-decay="200"></model-viewer>
+                <model-viewer id="mail" src="3d/Mail.glb" camera-orbit="45deg 55deg 20m"></model-viewer>
+                <script type="module">
+                    const phone = document.querySelector("model-viewer#phone");
+                    const mail = document.querySelector("model-viewer#mail");
+                    var darkMode = true;
+                    phone.environmentImage = 'neutral';
+
+                    mail.exposure = 0.72;
+
+                    document.querySelector(".theme-btn").addEventListener("click", (event) => {
+                    
+                        const phoneMat = phone.model.materials[0];
+                        const mailMat = mail.model.materials[1];
+
+                        if(darkMode == true){
+                            phoneMat.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
+                            mailMat.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.30, 0.47]);
+
+                            darkMode = false;
+                        } else {
+                            phoneMat.pbrMetallicRoughness.setBaseColorFactor([0.99, 0.99, 0.99]);
+                            mailMat.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
+
+                            darkMode = true;
+                        }
+                  
+                  });
+
+                    //Interpolation
+                    (() => {
+                    const phoneOrbitCycle = [
+                        '45deg 55deg 30m',
+                        '60deg 110deg 50m',
+                        phone.cameraOrbit
+                    ];
+
+                    const mailOrbitCycle = [
+                        '-45deg 55deg 40m',
+                        '60deg 110deg 70m',
+                        mail.cameraOrbit
+                    ];
+
+                    setInterval(() => {
+                        const currentPhoneOrbitIndex = phoneOrbitCycle.indexOf(phone.cameraOrbit);
+                        phone.cameraOrbit =
+                        phoneOrbitCycle[(currentPhoneOrbitIndex + 1) % phoneOrbitCycle.length];
+
+                        const currentMailOrbitIndex = mailOrbitCycle.indexOf(mail.cameraOrbit);
+                        mail.cameraOrbit =
+                        mailOrbitCycle[(currentMailOrbitIndex + 1) % mailOrbitCycle.length];
+                    }, 3000);
+                    })();
+
+
+
+                    
+                    </script>
+            </div>
+            <div class="contact-container">
+                <div class="main-title">
+                    <h2>Contact <span>Me</span><span class="bg-text">Contact</span></h2>
+                </div>
+                <div class="contact-content-con">
+                    <div class="left-contact">
+                        <h4>Contact me here</h4>
+                        <p>
+                            I currently only do freelancing for IG/FB Filters, Video Editing/Animation, and Graphic Design. <br><br>
+                            Send me a message for the rate.<br><br>
+                            Thank you and I am hoping to work with you!
+                        </p>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Location</span>
+                                </div>
+                                <p>
+                                    : Metro Manila, Philippines 🇵🇭
+                                </p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="icon">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email</span>
+                                </div>
+                                <p>
+                                    <span>: kpdavid02@gmail.com</span>
+                                </p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="icon">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Mobile Number</span>
+                                </div>
+                                <p>
+                                    <span>: (+63)926-061-8154)</span>
+                                </p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="icon">
+                                    <i class="fab fa-instagram"></i>
+                                    <span>Social Medias</span>
+                                </div>
+                                <p>
+                                    <span>: @kristiandvd</span>
+                                </p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="icon">
+                                    <i class="fas fa-globe-africa"></i>
+                                    <span>Languages</span>
+                                </div>
+                                <p>
+                                    <span>: Filipino, English</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="contact-icons">
+                            <div class="contact-icon">
+                                <a href="www.facebook.com">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/kristiandvd">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://github.com/kristian-david">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCuSwRexVyHQ0HGTnVCHqfVQ/about">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://www.tiktok.com/@kristiandvd">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-contact">
+                        <form action="" class="contact-form">
+                            <div class="input-control i-c-2">
+                                <input type="text" required placeholder="YOUR NAME">
+                                <input type="email" required placeholder="YOUR EMAIL">
+                            </div>
+                            <div class="input-control">
+                                <input type="text" required placeholder="ENTER SUBJECT">
+                            </div>
+                            <div class="input-control">
+                                <textarea name="" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                            </div>
+                            <div class="submit-btn">
+                                <a href="#" class="main-btn">
+                                    <span class="btn-text">Download CV</span>
+                                    <span class="btn-icon"><i class="fas fa-download"></i></span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="controls">
+        <div class="control active-btn" data-id="home" >
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="control" data-id="about">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="control" data-id="portfolio">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="control" data-id="achievements">
+            <i class="fas fa-solid fa-trophy"></i>
+        </div>
+        <div class="control" data-id="contact">
+            <i class="fas fa-solid fa-phone"></i>
+        </div>
+    </div>
+    <div class="theme-btn">
+        <i class="fas fa-adjust"></i>
+    </div>
+    <script src="js/app.js"></script>
 </body>
 </html>
