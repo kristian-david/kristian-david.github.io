@@ -48,7 +48,27 @@
 
             <div class="right-header">
                 <model-viewer id="room" src="3d/Room.glb" min-camera-orbit="-50deg 22.5deg 22.5deg"max-camera-orbit="50deg 90deg 60deg" camera-controls disable-zoom></model-viewer>
+                <script type="module">
+                    const room = document.querySelector("model-viewer#room");
 
+                    document.querySelector(".theme-btn").addEventListener("click", (event) => {
+                    
+                    const primaryMat = room.model.materials[1];
+                    const secondaryMat = room.model.materials[0];
+
+
+                    if(darkMode == true){
+                        primaryMat.pbrMetallicRoughness.setBaseColorFactor([0.02, 0.02, 0.02]);
+                        secondaryMat.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.12, 0.47]);
+
+                    } else {
+                        primaryMat.pbrMetallicRoughness.setBaseColorFactor([0.6, 0.6, 0.6]);
+                        secondaryMat.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
+
+                    }
+                  
+                  });
+                </script>
             </div>
 
         </div>
@@ -61,11 +81,10 @@
             </div>
             <div class="about-container">
                 <div class="left-about">
-                    <model-viewer id="circular-frame" src="3d/Circular-Frame.glb" min-camera-orbit="Infinity 89deg 22.5deg" max-camera-orbit="Infinity 91   deg 60deg"
+                    <model-viewer id="circular-frame" src="3d/Circular-Frame.glb" min-camera-orbit="Infinity 89deg 22.5deg" max-camera-orbit="Infinity 91deg 60deg"
                     camera-controls disable-zoom auto-rotate></model-viewer>
                     <script type="module">
                         const modelViewer = document.querySelector("model-viewer#circular-frame");
-                        var darkMode = true;
                         modelViewer.environmentImage = 'neutral';
                         modelViewer.exposure = 0.72;
                         modelViewer.shadowIntensity = 0.32;
@@ -76,10 +95,8 @@
                       
                             if(darkMode == true){
                                 material.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.30, 0.47]);
-                                darkMode = false;
                             } else {
-                                material.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
-                                darkMode = true;
+                                material.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.38, 0.28]);
                             }
                       
                       });
@@ -364,8 +381,6 @@
                 <script type="module">
                     const cassetteA = document.querySelector("model-viewer#cassetteA");
                     const cassetteB = document.querySelector("model-viewer#cassetteB");
-                    var darkMode = true;
-                    
 
                     document.querySelector(".theme-btn").addEventListener("click", (event) => {
                     
@@ -381,16 +396,12 @@
                             
                             bMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
                             bMatInside.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.05, 0.05]);
-
-                            darkMode = false;
                         } else {
                             aMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.95, 0.95, 0.95]);
                             aMatInside.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.4, 0.4]);
 
                             bMatOutside.pbrMetallicRoughness.setBaseColorFactor([0.95, 0.95, 0.95]);
                             bMatInside.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.4, 0.4]);
-
-                            darkMode = true;
                         }
                   
                   });
@@ -398,126 +409,11 @@
             </div>
 
             <div class="main-title">
-                <h2><span>Learn</span> More<span class="bg-text">Learn More</span></h2>
+                <h2>Bonus<span>!</span><span class="bg-text">BONUS</span></h2>
             </div>
             <p class="port-text">
-                Learn more about some of my projects.
+                Check out this <a href="https://kpdavid3.github.io/"><b><u>website</u></b></a> I created for my first college project!
             </p>
-            <div class="portfolios">
-                <div class="portfolio-item">
-                    <div class="image">
-                        <img src="img/port1.jpg" alt="">
-                    </div>
-                    <div class="hover-items">
-                        <h3>Project Source</h3>
-                        <div class="icons">
-                            <a href="#" class="icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="image">
-                        <img src="img/port2.jpg" alt="">
-                    </div>
-                    <div class="hover-items">
-                        <h3>Project Source</h3>
-                        <div class="icons">
-                            <a href="#" class="icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="image">
-                        <img src="img/port3.jpg" alt="">
-                    </div>
-                    <div class="hover-items">
-                        <h3>Project Source</h3>
-                        <div class="icons">
-                            <a href="#" class="icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="image">
-                        <img src="img/port4.jpg" alt="">
-                    </div>
-                    <div class="hover-items">
-                        <h3>Project Source</h3>
-                        <div class="icons">
-                            <a href="#" class="icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="image">
-                        <img src="img/port5.jpg" alt="">
-                    </div>
-                    <div class="hover-items">
-                        <h3>Project Source</h3>
-                        <div class="icons">
-                            <a href="#" class="icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="image">
-                        <img src="img/port2.jpg" alt="">
-                    </div>
-                    <div class="hover-items">
-                        <h3>Project Source</h3>
-                        <div class="icons">
-                            <a href="#" class="icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="#" class="icon">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <section class="container" id="achievements">
@@ -526,7 +422,6 @@
                 <model-viewer id="trophy" src="3d/Trophy.glb" auto-rotate></model-viewer>
                 <script type="module">
                     const modelViewer = document.querySelector("model-viewer#medal");
-                    var darkMode = true;
                     modelViewer.environmentImage = 'neutral';
                     
                     document.querySelector(".theme-btn").addEventListener("click", (event) => {
@@ -537,11 +432,9 @@
                         if(darkMode == true){
                             materialOutside.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.30, 0.47]);
                             materialInside.pbrMetallicRoughness.setBaseColorFactor([0.99, 0.99, 0.99]);
-                            darkMode = false;
                         } else {
                             materialOutside.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
                             materialInside.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
-                            darkMode = true;
                         }
                   
                   });
@@ -641,7 +534,6 @@
                 <script type="module">
                     const phone = document.querySelector("model-viewer#phone");
                     const mail = document.querySelector("model-viewer#mail");
-                    var darkMode = true;
                     phone.environmentImage = 'neutral';
 
                     mail.exposure = 0.72;
@@ -654,16 +546,12 @@
                         if(darkMode == true){
                             phoneMat.pbrMetallicRoughness.setBaseColorFactor([0.01, 0.01, 0.01]);
                             mailMat.pbrMetallicRoughness.setBaseColorFactor([0.86, 0.30, 0.47]);
-
-                            darkMode = false;
                         } else {
                             phoneMat.pbrMetallicRoughness.setBaseColorFactor([0.99, 0.99, 0.99]);
                             mailMat.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.58, 0.28]);
-
-                            darkMode = true;
                         }
                   
-                  });
+                    });
 
                     //Interpolation
                     (() => {
@@ -705,7 +593,7 @@
                         <p>
                             I currently only do freelancing for IG/FB Filters, Video Editing/Animation, and Graphic Design. <br><br>
                             Send me a message for the rate.<br><br>
-                            Thank you and I am hoping to work with you!
+                            I am hoping to work with you!
                         </p>
                         <div class="contact-info">
                             <div class="contact-item">
@@ -762,6 +650,9 @@
                                 <a href="https://twitter.com/kristiandvd">
                                     <i class="fab fa-twitter"></i>
                                 </a>
+                                <a href="https://instagram.com/kristiandvd">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
                                 <a href="https://github.com/kristian-david">
                                     <i class="fab fa-github"></i>
                                 </a>
@@ -786,10 +677,11 @@
                             <div class="input-control">
                                 <textarea name="" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
                             </div>
+
                             <div class="submit-btn">
                                 <a href="#" class="main-btn">
-                                    <span class="btn-text">Download CV</span>
-                                    <span class="btn-icon"><i class="fas fa-download"></i></span>
+                                    <span class="btn-text">Submit</span>
+                                    <span class="btn-icon"><i class="fas fa-upload"></i></span>
                                 </a>
                             </div>
                         </form>

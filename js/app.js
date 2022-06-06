@@ -1,3 +1,5 @@
+var darkMode = false;
+
 (function () {
 
     [...document.querySelectorAll(".control")].forEach(button => {
@@ -10,5 +12,7 @@
     });
     document.querySelector(".theme-btn").addEventListener("click", () => {
         document.body.classList.toggle("light-mode");
+        darkMode = darkMode ? false : true;
+
     })
 })();
