@@ -394,6 +394,7 @@ section {
   padding: 2rem;
   background: rgb(39,174,96);
   background: linear-gradient(135deg,var(--color-secondary), var(--color-secondary-2) 100%); 
+  z-index: -1;
 
   border-radius: 2rem;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
@@ -540,27 +541,20 @@ section {
   transform: scale(1);
 }
 
-.THREE-achievements{
-  position: absolute;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  min-height: 100vh;
-  width: 100%;
-}
 
 #medal{
-
+  position: absolute;
   width: 50rem;
   height: 50rem;
-  left: -50%;
-  top: -24%;
+  left: -10%;
+  top: -10%;
 }
 #trophy{
-
+  position: absolute;
   height: 50rem;
   width: 50rem;
-  left: 4%;
-  bottom: -40%;
+  right: -10%;
+  bottom: -20%;
 }
 
 .achievements {
@@ -616,27 +610,24 @@ section {
 }
 
 .THREE-contact{
-  position: absolute;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  min-height: 100vh;
-  width: 100%;
-  z-index: -1;
+  z-index: -10;
 }
 
 #phone{
-
+  position: absolute;
   width: 50rem;
   height: 50rem;
-  left: -50%;
-  top: -2%;
+  left: -10%;
+  top: -10%;
+
+  
 }
 #mail{
-
+  position: absolute;
   height: 50rem;
   width: 50rem;
-  left: 4%;
-  bottom: -30%;
+  right: -10%;
+  bottom: -20%;
 }
 
 .contact-content-con {
@@ -798,6 +789,18 @@ section {
   top: 50%;
   left: 50%;
   color: var(--color-grey-5);
+  transition: all 0.4s ease-in-out;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+  font-size: 6.3rem;
+}
+
+#THREEd-bg-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--color-secondary);
   transition: all 0.4s ease-in-out;
   z-index: -1;
   transform: translate(-50%, -50%);
